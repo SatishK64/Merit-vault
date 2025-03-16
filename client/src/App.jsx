@@ -4,8 +4,8 @@ import Student from './components/Student';
 import Faculty from './components/Faculty';
 import "./App.css";
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
-  const [faculty, setFaculty] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [faculty, setFaculty] = useState(false);
 
 
   return (
