@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       {!loggedIn && <Auth allowLogin={()=>setLoggedIn(true)} faculty = {()=>{setFaculty(true)}}/>}
-      {faculty ? <Faculty /> : <Student />}
+      {loggedIn&&faculty ? <Faculty /> : <Student />}
     </>
   )
 }
