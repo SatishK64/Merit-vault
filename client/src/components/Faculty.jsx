@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './Faculty.module.css'
 
-const Faculty = () => {
+const Faculty = ({name}) => {
   const [searchItem, setSearchItem] = useState("");
   const [apiStudents, setApiStudents] = useState([]);
   
@@ -56,10 +56,14 @@ const Faculty = () => {
   }
 
   return (
+    <>
+    <div className={styles.details}>
+      Welcome {name}
+    </div>
     <div className={styles.facContainer}>
       <input type='text' onChange={handleInputChange} value={searchItem} placeholder='Type to search' className={styles.glassMorphism} />
       <div className={styles.tableContainer}>
-      {filteredStudents.length === 0 ? <p className={styles.errorMsg}>No users found</p>: 
+      {filteredStudents.length === 0 ? <p className={styles.errorMsg}>No Students found</p>: 
         <table className={styles.table}>
           <tbody>
 
@@ -81,6 +85,7 @@ const Faculty = () => {
         }
       </div>
     </div>
+  </>
   )
 }
 

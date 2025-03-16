@@ -1,14 +1,48 @@
-import React from 'react'
+// import React from 'react'
 
-const Card = () => {
+// const Card = ({info,id,onDelete,styling,btn,child,mode}) => {
+//   return (
+//     <div className={child}>
+//       <div className="card" style={{ width: '18rem'}}>
+//           <img src={info.src} className="card-img-top" alt="preview"/>
+//           <div className="card-body">
+//               <h5 className="card-title">{info.title}</h5>
+//               <p className="card-text">{info.tags.map((tag, index) => (
+//                 <span key={index}>
+//                     {tag}
+//                     {index < info.tags.length - 1 && <span className={styling}> | </span>}
+//                   </span>
+//                 ))}</p>
+//               {mode==="edit" &&<button onClick={()=>{onDelete(id)}} className={`btn btn-outline-success ${btn}`} >Delete</button>}
+//           </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// export default Card
+
+
+import React from 'react'
+import styles from './Card.module.css' // Import the CSS module
+
+const Card = ({ info, id, onDelete,onDownload, styling, btn, child, mode })=> {
   return (
-    <div className="card" style="width: 18rem;">
-        <img src="https://picsum.photos/200" class="card-img-top h-75" alt="..."/>
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div className={child}>
+      <div className={styles.card}>
+        <img src={info.src} className={styles.cardImgTop} alt="preview" />
+        <div className={styles.cardBody}>
+          <h5 className={styles.cardTitle}>{info.title}</h5>
+          <p className={styles.cardText}>{info.tags.map((tag, index) => (
+            <span key={index}>
+              {tag}
+              {index < info.tags.length - 1 && <span className={styling}> | </span>}
+            </span>
+          ))}</p>
+          {mode === "edit" && <button onClick={() => { onDelete(id) }} className={`${styles.btn} ${styles.customButton}`}>Delete</button>}
+          <button onClick={() => {onDownload}} className={`${styles.btn} ${styles.down}`}>Download</button>
         </div>
+      </div>
     </div>
   )
 }

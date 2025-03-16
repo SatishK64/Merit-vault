@@ -57,9 +57,9 @@ function Auth(props) {
                                     Sign in here
                                 </b>
                             </p>
-                            <p className="error-text">
+                            {/* <p className="error-text">
                                 Invalid Username/Password
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                 
