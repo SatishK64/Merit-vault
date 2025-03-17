@@ -143,3 +143,40 @@ html {
         margin-bottom: 10px;
     }
 }
+
+.circular-upload-button {
+    --_padding: 1rem;
+    --_transition-speed: 200ms;
+    --_hover-opacity: 0.4;
+    --_pressed-opacity: 0.15;
+    --_hover-blurriness: 5px;
+    --_pressed-blurriness: 10px;
+    --_frostiness: 0.3;
+    --_hover-offset: 0.5rem;
+    --_pressed-offset: 0.25rem;
+    --_motion-factor: 0.1; /* 0 -> 1 */
+
+    outline: 0;
+    cursor: pointer;
+    font: inherit;
+    color: hsl(200, 60%, 12%);
+    font-weight: 500;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: rbg(0,0,250);
+    position: relative;
+    width: 50px;
+    height: 50px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    /* top: 50vh;
+    left: 50vw; */
+    z-index: 10;
+}
+.upload-container{
+    height:100vh;
+    width:100vw;
+}
+

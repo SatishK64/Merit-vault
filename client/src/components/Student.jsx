@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import styles from './Student.module.css'
 import Card from './Card'
-
+import Upload from './Upload'
 const Student = ({ details,back, mode }) => {
   const cards = [
     {
@@ -90,8 +90,14 @@ const Student = ({ details,back, mode }) => {
     console.log("Download "+cards[id].title)
   }
 
+  const [showUpload,setShowUpload] = useState(false);
+  function enable(){
+    setShowUpload((prev)=>{return !prev});
+  }
+
   return (
     <div className={styles.student}>
+      {showUpload&& <Upload click={enable}/>}
       <div className={styles.details}>
         <br />
         <h1 className={styles.big}>{details.username}</h1>
@@ -105,6 +111,7 @@ const Student = ({ details,back, mode }) => {
           ))}
         </h5>
         {mode !== "edit"&&<button className="glassy-button" onClick={back}><span><i className="fas fa-arrow-left"></i></span></button>}
+        {mode === "edit" && <button onClick={enable} className='circular-upload-button'>+</button>}
       </div>
       <div className={styles.parent}>
         {cards.map((card, index) => (
