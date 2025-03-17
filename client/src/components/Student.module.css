@@ -1,0 +1,49 @@
+.student {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F3E5CB;
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden; 
+    .parent {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-height: calc(100vh - 20vh); /* Adjust the height as needed */
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none; 
+    }
+    
+    .child {
+        width: 300px;
+        height: fit-content;
+        margin: 10px;
+    }
+    
+    .details {
+        z-index: 10;
+        text-align: center;
+        margin-bottom: 20px;
+        .big {
+            font-size: 4vw;
+        }
+    }
+    .separator {
+        color: green;
+        font-weight: bold;
+    }
+       
+}
+
+/* @media only screen and (max-width: 768px) {
+    .big {
+        font-size: 2rem;
+    }
+} */
+.parent::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}

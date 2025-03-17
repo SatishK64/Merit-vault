@@ -27,7 +27,44 @@ router.post('/login',async(req,res)=>{
         }
     }
 });
+router.put('/upload', async (req, res) => {
+    
+    const { username, file } = req.body;
+    const user = await User.findOne({ username });
 
+    if (!user) {
+        console.log("User not found in database");
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    if (!file || !file.fileName || !file.previewImage||!file.title) {
+        return res.status(400).json({ message: "File name or preview image not found" });
+    }
+
+    let fileExists = user.files.some(f => f.fileName === file.fileName);
+    if (fileExists) {
+        return res.status(409).json({ message: "File already exists" });
+    }
+
+    if (file.tags) {
+        file.tags.forEach(tag => {
+            if (!user.tags.includes(tag)) {
+                user.tags.push(tag);
+            }
+        });
+    }
+
+    user.files.push({
+        fileName: file.fileName,
+        previewImage: file.previewImage,
+        tags: file.tags || [],
+        title:file.title
+    });
+
+    await user.save();
+    res.status(200).json({ message: "User file details updated" });
+    
+});
 // 🚀 **User Registration (POST)**
 router.get('/alldata',async(req,res)=>{
     try{
@@ -64,44 +101,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// 🚀 **File Upload (PUT)**
-router.put('/upload', async (req, res) => {
-    
-        const { username, file } = req.body;
-        const user = await User.findOne({ username });
 
-        if (!user) {
-            console.log("User not found in database");
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        if (!file || !file.fileName || !file.previewImage) {
-            return res.status(400).json({ message: "File name or preview image not found" });
-        }
-
-        let fileExists = user.files.some(f => f.fileName === file.fileName);
-        if (fileExists) {
-            return res.status(409).json({ message: "File already exists" });
-        }
-
-        if (file.tags) {
-            file.tags.forEach(tag => {
-                if (!user.tags.includes(tag)) {
-                    user.tags.push(tag);
-                }
-            });
-        }
-
-        user.files.push({
-            fileName: file.fileName,
-            previewImage: file.previewImage,
-            tags: file.tags || []
-        });
-
-        await user.save();
-        res.status(200).json({ message: "User file details updated" });
-    
-});
 
 router.get('/tags', async (req, res) => {
     try {

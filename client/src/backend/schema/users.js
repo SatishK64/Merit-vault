@@ -29,6 +29,11 @@ const UserSchema = new mongoose.Schema(
                 tags: {
                     type: [String],
                     default: [],
+                },
+                title:{
+                    type:String,
+                    default:"untitled",
+                    required:true
                 }
             }
         ],

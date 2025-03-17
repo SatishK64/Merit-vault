@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './Faculty.module.css'
 import { set } from 'mongoose';
 
-const Faculty = () => {
+const Faculty = ({name,setStudent,show}) => {
   const [searchItem, setSearchItem] = useState("");
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [users, setUsers] = useState([]);
@@ -32,19 +32,24 @@ const Faculty = () => {
   }
 
   function handleClick(student){
-
+    setStudent(student);
+    show();
   }
 
   return (
+    <>
+    <div className={styles.details}>
+      Welcome {name}
+    </div>
     <div className={styles.facContainer}>
       <input type='text' onChange={handleInputChange} value={searchItem} placeholder='Type to search' className={styles.glassMorphism} />
       <div className={styles.tableContainer}>
-      {filteredStudents.length === 0 ? <p className={styles.errorMsg}>No users found</p>: 
+      {filteredStudents.length === 0 ? <p className={styles.errorMsg}>No Students found</p>: 
         <table className={styles.table}>
           <tbody>
 
             {filteredStudents.map((user,index) => (
-              <tr key={index} onClick={()=>{handleClick(user.username)}}>
+              <tr key={index} onClick={()=>{handleClick(user)}}>
                 <td className={styles.name}>{user.username}</td>
                 <td className={styles.tags}>
                   {user.tags.slice(0, 4).map((tag, index) => (
@@ -61,6 +66,7 @@ const Faculty = () => {
         }
       </div>
     </div>
+  </>
   )
 }
 

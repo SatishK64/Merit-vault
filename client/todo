@@ -1,0 +1,11 @@
+upload functionality ****
+show / hide password
+show card skeletons before loading (preferably animated)
+
+Done---
+make student name responsive
+back button from student profile to faculty
+access student from faculty
+
+---crlf error
+git config --global core.autocrlf true
