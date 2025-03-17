@@ -10,9 +10,9 @@ connectDB();
 router.post('/login',async(req,res)=>{
 
     const {username,password}=req.body;
-    console.log(username,password);
+    // console.log(username,password);
     const user=await User.findOne({username});
-    console.log(username,password);
+    // console.log(username,password);
     if(!user){
         return res.status(404).json({message:"User not found"});
     }
@@ -31,7 +31,7 @@ router.post('/login',async(req,res)=>{
 router.get('/alldata',async(req,res)=>{
     try{
         const users=await User.find({},{username:1,tags:1,_id:0});
-        console.log(users);
+        // console.log(users);
         res.status(200).json({data:users});
     }
     catch(err){
@@ -42,21 +42,23 @@ router.post('/register', async (req, res) => {
     try {
         const { username, password, role = "student" } = req.body;
         const user = await User.findOne({ username });
-        if(!username||!password||!user|| username==""||password==""){
-            return res.status(500).json({message:"NO username or password"});
-        }
+       if(!username || !password){
+            // console.log(username,password);
+              return res.status(400).json({message:"Username and Password are required"});
+       }
         if (user) {
+            // console.log(user)
             return res.status(409).json({ message: "User already exists" });
         }
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
         const newUser = new User({ username, passwordHash: hashedPassword, role, files: [], tags: [] });
-
+       
         await newUser.save();
         res.status(201).json({ message: "User Created" });
     } catch (err) {
-        console.error("Error:", err);
+        // console.error("Error:", err);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
@@ -94,7 +96,7 @@ router.put('/upload', async (req, res) => {
         await user.save();
         res.status(200).json({ message: "User file details updated" });
     } catch (err) {
-        console.error("Error:", err);
+        // console.error("Error:", err);
         res.status(500).json({ message: "Internal Server Error while updating the file details" });
     }
 });

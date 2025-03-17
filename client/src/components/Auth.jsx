@@ -49,21 +49,39 @@ function Auth(props) {
             alert('Invalid Username/Password');
         }
     }
-    function signUp(){
+    async function signUp(){
         if(password === confirm){
-            fetch('/api/register', {
+            const res=await fetch('/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({username: ip, password: password}),
             });
-            alert('User Created');
-            props.allowLogin(); 
+            console.log(res);
+            if(res.status===201){
+                alert('User Created');
+                // console.log('User Created');
+                props.allowLogin();
+            }
+            else if(res.status===400){
+                // console.log('Username and passoerd are required');
+                alert('Username and passoerd are required')
+            } 
+            else if(res.status===409){
+                // console.log('User already exists');
+                alert('User already exists');
+            }
+            else{
+                // console.log('Internal Server Error');
+                alert('Internal Server Error');
+            }
         }
         else{
+            // console.log('Passwords do not match');
             alert('Passwords do not match');
-    }
+        }
+        
     }
     return (
         <div id="container" className={`container ${sign ? 'sign-in' : 'sign-up'}`}>
@@ -84,7 +102,7 @@ function Auth(props) {
                                 <i className='bx bxs-lock-alt'></i>
                                 <input type="password" placeholder="Confirm Password" value={confirm} onChange={(e)=>setConfirm(e.target.value)}/>
                             </div>
-                            <button onClick={signUp}>
+                            <button onClick={async ()=>{signUp()}}>
                                 Sign up
                             </button>
                             <p>
