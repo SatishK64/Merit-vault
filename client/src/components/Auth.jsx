@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import logo from './../assets/logo.svg';
 import './Auth.css';
+import { set } from 'mongoose';
 function Auth(props) {
 
-    const [sign,setSign]= useState(true);
-    const [password,setPassword]= useState('');
+    const[sign,setSign]= useState(true);
+    const[password,setPassword]= useState('');
     const[confirm,setConfirm]= useState('');
     const [ip,setIp]= useState('');
 
@@ -58,7 +59,7 @@ function Auth(props) {
                 body: JSON.stringify({username: ip, password: password}),
             });
             alert('User Created');
-            props.allowLogin();
+            props.allowLogin(); 
         }
         else{
             alert('Passwords do not match');
@@ -93,6 +94,7 @@ function Auth(props) {
                                 <b onClick={toggle} className="pointer">
                                     Sign in here
                                 </b>
+                                {message && <p className="error-text">{message}</p>}
                             </p>
                             <p className="error-text">
                                 Invalid Username/Password

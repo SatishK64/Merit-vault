@@ -10,8 +10,7 @@ connectDB();
 router.post('/login',async(req,res)=>{
 
     const {username,password}=req.body;
-    console.log(username
-,password);
+    console.log(username,password);
     const user=await User.findOne({username});
     console.log(username,password);
     if(!user){
@@ -43,7 +42,9 @@ router.post('/register', async (req, res) => {
     try {
         const { username, password, role = "student" } = req.body;
         const user = await User.findOne({ username });
-
+        if(!user||!password){
+            return res.status(500).json({message:"NO username or password"});
+        }
         if (user) {
             return res.status(409).json({ message: "User already exists" });
         }
