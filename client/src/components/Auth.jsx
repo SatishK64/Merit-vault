@@ -19,15 +19,6 @@ function Auth(props) {
         setIp(e.target.value);
     }
     
-    function test(){
-        if (ip === 'admin'){
-            props.allowLogin();
-        }
-        else if (ip === 'faculty'){
-            props.allowLogin();
-            props.faculty();
-        }
-    }
     
     async function signIn(){
         console.log(ip);
@@ -40,7 +31,7 @@ function Auth(props) {
         });
         if(user.status === 200){
             props.allowLogin();
-            if(ip === 'chai'){
+            if(ip === 'chai' || ip==="aryan"){
                 props.faculty();
             }
         }

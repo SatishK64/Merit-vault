@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Faculty.module.css'
-import { set } from 'mongoose';
 
 const Faculty = ({name,setStudent,show}) => {
   const [searchItem, setSearchItem] = useState("");

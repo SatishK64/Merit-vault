@@ -3,83 +3,31 @@ import styles from './Student.module.css'
 import Card from './Card'
 import Upload from './Upload'
 const Student = ({ details,back, mode }) => {
-  const cards = [
-    {
-      title: "SIH",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Hello",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Hack",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Quantum",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Cloud",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Cloud",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Cloud",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "SIH",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Hello",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Hack",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Quantum",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Cloud",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Cloud",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Cloud",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-    {
-      title: "Cloud",
-      src: "https://picsum.photos/200",
-      tags: ["AI", "Cloud", "kashdl"]
-    },
-  ]
+  const [cards,setCards] = useState([]);
+  const [showUpload,setShowUpload] = useState(false);
+
+  //Fetching all files and seting the cards to all the files
+  useEffect(()=>{
+    async function fetchData(){
+      const response = await fetch(`/api/allfiles/${details.username}`);
+      if(!response.ok){
+        console.log("Error fetching data");
+        return;
+      }
+      const data = await response.json();
+      console.log(data.files);
+      if(data.files.length===0){
+        console.log("No files found");
+        setCards([]);
+        return;
+      }
+      setCards(data.files);
+
+    }
+    fetchData();
+    
+  },[]);
+
 
   function handleDelete(id) {
     
@@ -90,7 +38,6 @@ const Student = ({ details,back, mode }) => {
     console.log("Download "+cards[id].title)
   }
 
-  const [showUpload,setShowUpload] = useState(false);
   function enable(){
     setShowUpload((prev)=>{return !prev});
   }
@@ -119,6 +66,7 @@ const Student = ({ details,back, mode }) => {
           key={index} 
           id={index} 
           info={card} 
+          username={details.username}
           onDelete={handleDelete} 
           child = {styles.child} 
           styling={styles.separator} 

@@ -1,11 +1,11 @@
 import React from 'react'
 import styles from './Card.module.css' // Import the CSS module
 
-const Card = ({ info, id, onDelete,onDownload, styling, child, mode })=> {
+const Card = ({ username,info, id, onDelete,onDownload, styling, child, mode })=> {
   return (
     <div className={child}>
       <div className={styles.card}>
-        <img src={info.src} className={styles.cardImgTop} alt="preview" />
+        <img src={`https://fpszl91p-3000.inc1.devtunnels.ms/file/view/${username}/${info.previewImage}`} className={styles.cardImgTop} alt="preview" loading='lazy'/>
         <div className={styles.cardBody}>
           <h5 className={styles.cardTitle}>{info.title}</h5>
           <p className={styles.cardText}>{info.tags.map((tag, index) => (

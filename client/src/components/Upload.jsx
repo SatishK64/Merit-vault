@@ -32,7 +32,7 @@ const FileUpload = ({click}) => {
     setStatus('Uploading...');
 
     try {
-      const response = await axios.post('http://localhost:3000/upload/chai', formData, {
+      const response = await axios.post('https://fpszl91p-3000.inc1.devtunnels.ms/upload/aryan', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
