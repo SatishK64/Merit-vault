@@ -56,17 +56,18 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
-router.get('/onetag/:user',async (req,res)=>{
-    const {user}=req.params;
-    console.log(user);
-    if(!user){
+
+router.get('/deets/:username',async (req,res)=>{
+    console.log("One tag");
+    const {username}=req.params;
+    if(!username){
         return res.status(404).json({message:"username is empty"});
     }
-    const userdata= await User.findOne({username});
+    const user= await User.findOne({username});
     if(!user){
         return res.status(404).json({message:"User does not exist"})
     }
-    return res.status(200).json({username:user,tags:userdata.tag})
+    return res.status(200).json({username:username,tags:user.tags})
 })
 
 router.get('/allfiles/:username',async (req,res)=>{
@@ -78,7 +79,6 @@ router.get('/allfiles/:username',async (req,res)=>{
             return res.status(404).json({message: "User not found"});
         }
         
-        console.log(user.files);
         return res.status(200).json({files: user.files});
     } catch (error) {
         console.error("Error fetching files:", error);

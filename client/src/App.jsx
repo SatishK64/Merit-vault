@@ -1,4 +1,4 @@
-import React,{ use, useState } from 'react';
+import React,{ use, useState, useEffect } from 'react';
 import Auth from './components/Auth';
 import Student from './components/Student';
 import Faculty from './components/Faculty';
@@ -9,6 +9,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [faculty, setFaculty] = useState(false);
   const [showStudent,setShowStudent] = useState(false);
+  const[username,setUsername]=useState('');
   const[data,setData]=useState(details);
   // The edit can be a separate variable that can be changed form somewhere esle
   function updateDetails(data){
@@ -16,10 +17,29 @@ function App() {
     console.log(student)
     setData(student);
   }
+  useEffect(()=>{
+    async function student(){
+      console.log(username); 
+      const res = await fetch(`/api/deets/${username}`);
+      if(res.status === 200){
+          const data = await res.json();
+          setData(data);
+      }else{
+          alert('User not found');
+      }   
+    }
+    if(username!==''){
+      student();
+    }
 
+  }
+  ,[username])
+  function updateUsername(det){
+    setUsername(det); 
+  }
   return (
     <>
-      {!loggedIn && <Auth allowLogin={()=>setLoggedIn(true)} faculty = {()=>{setFaculty(true)}}/>}
+      {!loggedIn && <Auth allowLogin={()=>setLoggedIn(true)} faculty = {()=>{setFaculty(true)}} username={updateUsername} />}
       {/* {loggedIn && faculty ? (showStudent? <Faculty name ="Admin"/> : <Student details={details} mode={false&&"edit"}/>):<Student details={details} mode={true&&"edit"}/>} */}
       {loggedIn && faculty ? (showStudent? <Student details={data} back = {()=>{setShowStudent(false)}} mode={false&&"edit"}/>:<Faculty name ="Admin" setStudent = {(updateDetails)} show={()=>{setShowStudent(true)}}/>) :<Student details={data} mode={true&&"edit"}/>}
 

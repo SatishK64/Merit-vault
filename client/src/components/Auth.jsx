@@ -21,7 +21,6 @@ function Auth(props) {
     
     
     async function signIn(){
-        console.log(ip);
         const user = await fetch('/api/login', {
             method: 'POST',
             headers: {
@@ -30,10 +29,12 @@ function Auth(props) {
             body: JSON.stringify({username: ip, password: password}),
         });
         if(user.status === 200){
-            props.allowLogin();
+            props.username(ip);
             if(ip === 'chai' || ip==="aryan"){
                 props.faculty();
             }
+            props.allowLogin();
+            console.log(ip);
         }
         else{
             alert('Invalid Username/Password');
