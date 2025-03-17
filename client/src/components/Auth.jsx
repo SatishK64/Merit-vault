@@ -32,7 +32,7 @@ function Auth(props) {
             {/* FORM SECTION */}
             <div className="row">
                 {/* SIGN UP */}
-                <div className="col align-items-center flex-col sign-up">
+                <div className="col align-items-center flex-col sign-up pad">
                     <div className="form-wrapper align-items-center">
                         <div className="form sign-up">
                             <div className="input-group">
@@ -66,7 +66,7 @@ function Auth(props) {
                 </div>
                 {/* END SIGN UP */}
                 {/* SIGN IN */}
-                <div className="col align-items-center flex-col sign-in">
+                <div className="col align-items-center flex-col sign-in pad">
                     <div className="form-wrapper align-items-center">
                         <div className="form sign-in">
                             <div className="input-group">
@@ -99,7 +99,7 @@ function Auth(props) {
             {/* CONTENT SECTION */}
             <div className="row content-row">
                 {/* SIGN IN CONTENT */}
-                <div className="col align-items-center flex-col">
+                <div className="col align-items-center flex-col logoDown">
                     <div className="img sign-in">
                         <img src={logo} alt="logo"/>
                     </div>
@@ -111,7 +111,7 @@ function Auth(props) {
                 </div>
                 {/* END SIGN IN CONTENT */}
                 {/* SIGN UP CONTENT */}
-                <div className="col align-items-center flex-col">
+                <div className="col align-items-center flex-col logoDown">
                     <div className="text sign-up">
                         <h2>
                         Join with us

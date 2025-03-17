@@ -1,9 +1,8 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import styles from './Student.module.css'
 import Card from './Card'
 
-const Student = ({ details, mode }) => {
-
+const Student = ({ details,back, mode }) => {
   const cards = [
     {
       title: "SIH",
@@ -95,8 +94,8 @@ const Student = ({ details, mode }) => {
     <div className={styles.student}>
       <div className={styles.details}>
         <br />
-        <h1 className={styles.big}>{details.regdNo}</h1>
-        {mode && <h5>{mode}</h5>} {/*to check if mode is edit */}
+        <h1 className={styles.big}>{details.username}</h1>
+        {/* {mode && <h5>{mode}</h5>} to check if mode is edit */}
         <h5>
           {details.tags.map((tag, index) => (
             <span key={index}>
@@ -105,6 +104,7 @@ const Student = ({ details, mode }) => {
             </span>
           ))}
         </h5>
+        {mode !== "edit"&&<button className="glassy-button" onClick={back}><span><i className="fas fa-arrow-left"></i></span></button>}
       </div>
       <div className={styles.parent}>
         {cards.map((card, index) => (

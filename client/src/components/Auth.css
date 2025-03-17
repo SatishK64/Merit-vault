@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 :root {
   --primary-color: #006B64;
-  --secondary-color:rgb(0, 0, 0);
+  --secondary-color:rgb(17, 87, 85);
   --black: #000000;
   --white: #ffffff;
   --gray: #efefef;
@@ -153,7 +153,7 @@ body {
   font-size: 3.5rem;
   font-weight: 800;
   margin: 2rem 0;
-  transition: 1s ease-in-out;
+  transition: 0.8s ease-in-out;
 }
 
 .text p {
@@ -169,21 +169,21 @@ body {
 
 
 .img.sign-in img{
-  transform: translateX(-350%);
+  transform: translateX(-275%);
 }
 
 .img.sign-up img {
-  transform: translateX(350%);
+  transform: translateX(275%);
 }
 
 .text.sign-in h2,
 .text.sign-in p{
-  transform: translateX(-250%);
+  transform: translateX(-300%);
 }
 
 .text.sign-up h2,
 .text.sign-up p {
-  transform: translateX(250%);
+  transform: translateX(300%);
 }
 
 .container.sign-in .text.sign-in h2,
@@ -225,7 +225,7 @@ body {
 
 /* RESPONSIVE */
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 768px) {
 
   .container::before,
   .container.sign-in::before,
@@ -237,10 +237,7 @@ body {
       transform: none;
       right: 0;
   }
-
-  /* .container.sign-in .col.sign-up {
-      transform: translateY(100%);
-  } */
+  
 
   .container.sign-in .col.sign-in,
   .container.sign-up .col.sign-up {
@@ -271,9 +268,20 @@ body {
       align-items: flex-end;
       justify-content: flex-end;
   }
+  .logoDown{
+      .text.sign-up{
+        font-size:2rem;
+      }
+      scale:2;
+      padding: 0;
+      padding-top: 8rem;
+      margin-top:2rem;
+  }
+  .pad{
+    padding-bottom: 5rem;
+  }
 
-  .form,
-  .social-list {
+  .form{
       box-shadow: none;
       margin: 0;
       padding: 0;
@@ -289,6 +297,6 @@ body {
 
   .text h2 {
       margin: .5rem;
-      font-size: 2rem;
+      font-size: 4vw;
   }
 }
