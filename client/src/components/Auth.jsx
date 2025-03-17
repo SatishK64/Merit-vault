@@ -4,6 +4,8 @@ import './Auth.css';
 function Auth(props) {
 
     const [sign,setSign]= useState(true);
+    const [password,setPassword]= useState('');
+    const[confirm,setConfirm]= useState('');
     const [ip,setIp]= useState('');
 
     const toggle = () => {
@@ -26,7 +28,42 @@ function Auth(props) {
             props.faculty();
         }
     }
-
+    
+    async function signIn(){
+        console.log(ip);
+        const user = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({username: ip, password: password}),
+        });
+        if(user.status === 200){
+            props.allowLogin();
+            if(ip === 'chai'){
+                props.faculty();
+            }
+        }
+        else{
+            alert('Invalid Username/Password');
+        }
+    }
+    function signUp(){
+        if(password === confirm){
+            fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({username: ip, password: password}),
+            });
+            alert('User Created');
+            props.allowLogin();
+        }
+        else{
+            alert('Passwords do not match');
+    }
+    }
     return (
         <div id="container" className={`container ${sign ? 'sign-in' : 'sign-up'}`}>
             {/* FORM SECTION */}
@@ -36,17 +73,17 @@ function Auth(props) {
                     <div className="form-wrapper align-items-center">
                         <div className="form sign-up">
                             <div className="input-group">
-                                <input type="text" placeholder="User ID"/>
+                                <input type="text" placeholder="User ID" value={ip} onChange={(e)=>setIp(e.target.value)}/>
                             </div>
                             <div className="input-group">
                                 <i className='bx bxs-lock-alt'></i>
-                                <input type="password" placeholder="Password"/>
+                                <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                             </div>
                             <div className="input-group">
                                 <i className='bx bxs-lock-alt'></i>
-                                <input type="password" placeholder="Confirm Password"/>
+                                <input type="password" placeholder="Confirm Password" value={confirm} onChange={(e)=>setConfirm(e.target.value)}/>
                             </div>
-                            <button >
+                            <button onClick={signUp}>
                                 Sign up
                             </button>
                             <p>
@@ -74,9 +111,9 @@ function Auth(props) {
                             </div>
                             <div className="input-group">
                                 <i className='bx bxs-lock-alt'></i>
-                                <input type="password" placeholder="Password"/>
+                                <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                             </div>
-                            <button onClick={test}>
+                            <button onClick={async()=>{signIn()}}>
                                 Sign in
                             </button>
                             <p>
@@ -129,3 +166,4 @@ function Auth(props) {
 }
 
 export default Auth;
+
