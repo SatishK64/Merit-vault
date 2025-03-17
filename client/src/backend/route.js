@@ -2,6 +2,7 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import connectDB from "./metaDB/db.js";		
 import User from "./schema/users.js";
+import { use } from 'react';
 
 const router = express.Router();
 
@@ -65,7 +66,7 @@ router.post('/register', async (req, res) => {
 
 // 🚀 **File Upload (PUT)**
 router.put('/upload', async (req, res) => {
-    try {
+    
         const { username, file } = req.body;
         const user = await User.findOne({ username });
 
@@ -84,21 +85,22 @@ router.put('/upload', async (req, res) => {
         }
 
         if (file.tags) {
-            user.tags = file.tags;
+            file.tags.forEach(tag => {
+                if (!user.tags.includes(tag)) {
+                    user.tags.push(tag);
+                }
+            });
         }
 
         user.files.push({
             fileName: file.fileName,
             previewImage: file.previewImage,
-            tags: file.tags || ["misc"]
+            tags: file.tags || []
         });
 
         await user.save();
         res.status(200).json({ message: "User file details updated" });
-    } catch (err) {
-        // console.error("Error:", err);
-        res.status(500).json({ message: "Internal Server Error while updating the file details" });
-    }
+    
 });
 
 router.get('/tags', async (req, res) => {
@@ -119,5 +121,12 @@ router.get('/tags', async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
-
+router.post('/allfiles',async (req,res)=>{
+    const {username}=req.body;
+    const user=await User.findOne({username});
+    if(!user){
+        res.status(404).json({message:"user not found"})
+    }
+    return res.status(200).json({files:user.files});
+});
 export default router;
