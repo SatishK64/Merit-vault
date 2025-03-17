@@ -42,7 +42,7 @@ router.post('/register', async (req, res) => {
     try {
         const { username, password, role = "student" } = req.body;
         const user = await User.findOne({ username });
-        if(!user||!password){
+        if(!username||!password||!user){
             return res.status(500).json({message:"NO username or password"});
         }
         if (user) {

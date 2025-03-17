@@ -94,7 +94,7 @@ function Auth(props) {
                                 <b onClick={toggle} className="pointer">
                                     Sign in here
                                 </b>
-                                {message && <p className="error-text">{message}</p>}
+
                             </p>
                             <p className="error-text">
                                 Invalid Username/Password
