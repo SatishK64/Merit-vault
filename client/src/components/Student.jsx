@@ -24,9 +24,11 @@ const Student = ({ details,back, mode }) => {
       setCards(data.files);
 
     }
-    fetchData();
+    if(details.username!==''){
+      fetchData();
+    }
     
-  },[]);
+  },[details,showUpload]);
 
 
   function handleDelete(id) {
@@ -44,7 +46,7 @@ const Student = ({ details,back, mode }) => {
 
   return (
     <div className={styles.student}>
-      {showUpload&& <Upload click={enable}/>}
+      {showUpload&& <Upload click={enable} username={details.username}/>}
       <div className={styles.details}>
         <br />
         <h1 className={styles.big}>{details.username}</h1>

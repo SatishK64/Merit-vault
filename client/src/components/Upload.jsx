@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const FileUpload = ({click}) => {
+const FileUpload = ({click, username}) => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState('');
@@ -32,7 +32,8 @@ const FileUpload = ({click}) => {
     setStatus('Uploading...');
 
     try {
-      const response = await axios.post('https://fpszl91p-3000.inc1.devtunnels.ms/upload/aryan', formData, {
+      console.log(username);
+      const response = await axios.post(`https://fpszl91p-3000.inc1.devtunnels.ms/upload/${username}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -43,7 +44,7 @@ const FileUpload = ({click}) => {
           setProgress(percentCompleted);
         },
       });
-      // console.log(response);
+      console.log(response);
 
       setStatus(`Upload successful: ${response.data.message}`);
       setFile(null);

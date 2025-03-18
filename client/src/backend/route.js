@@ -186,6 +186,7 @@ router.get('/tags', async (req, res) => {
 router.post('/allfiles',async (req,res)=>{
     const {username}=req.body;
     const user=await User.findOne({username});
+    console.log(username.files);
     if(!user){
         res.status(404).json({message:"user not found"})
     }

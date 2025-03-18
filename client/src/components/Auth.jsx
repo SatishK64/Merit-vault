@@ -31,7 +31,7 @@ function Auth(props) {
         });
         if(user.status === 200){
             props.username(ip);
-            if(ip === 'chai' || ip==="aryan"){
+            if( ip==="aryan"){
                 props.faculty();
             }
             props.allowLogin();
@@ -54,6 +54,7 @@ function Auth(props) {
             if(res.status===201){
                 alert('User Created');
                 // console.log('User Created');
+                props.username(ip);
                 props.allowLogin();
             }
             else if(res.status===400){
