@@ -191,4 +191,36 @@ router.post('/allfiles',async (req,res)=>{
     }
     return res.status(200).json({files:user.files});
 });
+router.put('/deletefile', async (req, res) => {
+    try {
+        const { username, filename } = req.body;
+
+        // Find the user
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const fileExists = user.files.some(file => file.fileName === filename);
+        if (!fileExists) {
+            return res.status(404).json({ message: "File does not exist to delete in the first place" });
+        }
+        const { newcount } = await User.updateOne(
+            { username },
+            { $pull: { files: { fileName: filename } } }
+        );
+
+        if (newcount === 0) {
+            return res.status(404).json({ message: "File could not be deleted" });
+        }
+
+        return res.status(200).json({ message: "File deleted successfully" });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
 export default router;
