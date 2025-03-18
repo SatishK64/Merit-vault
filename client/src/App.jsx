@@ -11,6 +11,7 @@ function App() {
   const [showStudent,setShowStudent] = useState(false);
   const[username,setUsername]=useState('');
   const[data,setData]=useState(details);
+  const link = 'https://fpszl91p-3000.inc1.devtunnels.ms/'
   // The edit can be a separate variable that can be changed form somewhere esle
   function updateDetails(data){
     const student=data;
@@ -41,7 +42,7 @@ function App() {
     <>
       {!loggedIn && <Auth allowLogin={()=>setLoggedIn(true)} faculty = {()=>{setFaculty(true)}} username={updateUsername} />}
       {/* {loggedIn && faculty ? (showStudent? <Faculty name ="Admin"/> : <Student details={details} mode={false&&"edit"}/>):<Student details={details} mode={true&&"edit"}/>} */}
-      {loggedIn && faculty ? (showStudent? <Student details={data} back = {()=>{setShowStudent(false)}} mode={false&&"edit"}/>:<Faculty name ={username} setStudent = {(updateDetails)} show={()=>{setShowStudent(true)}}/>) :<Student details={data} mode={true&&"edit"}/>}
+      {loggedIn && faculty ? (showStudent? <Student details={data} link = {link} back = {()=>{setShowStudent(false)}} mode={false&&"edit"}/>:<Faculty name ={username} setStudent = {(updateDetails)} show={()=>{setShowStudent(true)}}/>) :<Student details={data} link = {link} mode={true&&"edit"}/>}
 
     </>
   )

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const FileUpload = ({click, username}) => {
+const FileUpload = ({click,link, username}) => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState('');
@@ -33,7 +33,7 @@ const FileUpload = ({click, username}) => {
 
     try {
       console.log(username);
-      const response = await axios.post(`https://fpszl91p-3000.inc1.devtunnels.ms/upload/${username}`, formData, {
+      const response = await axios.post(`${link}upload/${username}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
