@@ -2,9 +2,11 @@ import React,{useState,useEffect} from 'react'
 import styles from './Student.module.css'
 import Card from './Card'
 import Upload from './Upload'
-const Student = ({ details,back, mode }) => {
+import { set } from 'mongoose'
+const Student = ({ details,back, link, mode }) => {
   const [cards,setCards] = useState([]);
   const [showUpload,setShowUpload] = useState(false);
+  const [toggle,setToggle] = useState(false);
 
   //Fetching all files and seting the cards to all the files
   useEffect(()=>{
@@ -24,14 +26,15 @@ const Student = ({ details,back, mode }) => {
       setCards(data.files);
 
     }
-    fetchData();
+    if(details.username!==''){
+      fetchData();
+    }
     
-  },[]);
+  },[details,showUpload,toggle]);
 
 
   function handleDelete(id) {
-    
-    console.log(cards[id].title)
+    setToggle((prev)=>{return !prev});
   }
   
   function download(id){
@@ -44,7 +47,7 @@ const Student = ({ details,back, mode }) => {
 
   return (
     <div className={styles.student}>
-      {showUpload&& <Upload click={enable}/>}
+      {showUpload&& <Upload click={enable} link = {link} username={details.username}/>}
       <div className={styles.details}>
         <br />
         <h1 className={styles.big}>{details.username}</h1>
@@ -66,7 +69,8 @@ const Student = ({ details,back, mode }) => {
           <Card 
           key={index} 
           id={index} 
-          info={card} 
+          info={card}
+          link = {link}
           username={details.username}
           onDelete={handleDelete} 
           child = {styles.child} 

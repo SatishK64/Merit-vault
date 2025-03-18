@@ -186,15 +186,17 @@ router.get('/tags', async (req, res) => {
 router.post('/allfiles',async (req,res)=>{
     const {username}=req.body;
     const user=await User.findOne({username});
+    console.log(username.files);
     if(!user){
         res.status(404).json({message:"user not found"})
     }
     return res.status(200).json({files:user.files});
 });
 router.put('/deletefile', async (req, res) => {
+
     try {
         const { username, filename } = req.body;
-
+        console.log(username,filename);
             const user = await User.findOne({ username });
         if (!user) {
             return res.status(404).json({ message: "User not found" });
