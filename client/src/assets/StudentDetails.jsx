@@ -11,7 +11,7 @@ import React, { useState } from 'react';
 // const [details,setDetails]=useState();
 
   const details = {
-    username:"VU22CSEN00113798",
+    username:"",
     tags:["Sports","Club","Cloud"],
   };
 
