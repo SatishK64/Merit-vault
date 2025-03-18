@@ -37,6 +37,26 @@ const Card = ({ username,info, id,link, onDelete,onDownload, styling, child, mod
         // Handle the error appropriately
       });
   }
+
+  async function deleteFile(username, filename) {
+    try{
+      const response = await fetch('/api/deletefile',{
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, filename }),
+      });
+      if (response.status === 200) {
+        onDelete();
+      }else{
+        alert('Delete failed:', response.statusText);
+      }
+     } catch (error) {
+        alert('Delete failed:', error);
+      }
+    }
+
   return (
     <div className={child}>
       <div className={styles.card}>
@@ -49,12 +69,12 @@ const Card = ({ username,info, id,link, onDelete,onDownload, styling, child, mod
               {index < info.tags.length - 1 && <span className={styling}> | </span>}
             </span>
           ))}</p>
-          {mode === "edit" && <button onClick={() => { onDelete(id) }} className={`${styles.btn} ${styles.customButton}`}>Delete</button>}
+          {mode === "edit" && <button onClick={() => { deleteFile(username,info.fileName) }} className={`${styles.btn} ${styles.customButton}`}>Delete</button>}
           <button onClick={() => {downloadFile(username,info.fileName,info.title)}} className={`${styles.btn} ${styles.down}`}>Download</button>
         </div>
       </div>
     </div>
   )
-}
 
+}
 export default Card

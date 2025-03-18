@@ -193,9 +193,10 @@ router.post('/allfiles',async (req,res)=>{
     return res.status(200).json({files:user.files});
 });
 router.put('/deletefile', async (req, res) => {
+
     try {
         const { username, filename } = req.body;
-
+        console.log(username,filename);
         // Find the user
         const user = await User.findOne({ username });
         if (!user) {
