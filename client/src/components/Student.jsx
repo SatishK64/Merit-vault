@@ -61,7 +61,8 @@ const Student = ({ details,back, mode }) => {
         {mode === "edit" && <button onClick={enable} className='circular-upload-button'>+</button>}
       </div>
       <div className={styles.parent}>
-        {cards.map((card, index) => (
+        {cards.length === 0 ? <p className={styles.errorMsg}>No Files Uploaded</p>: 
+        cards.map((card, index) => (
           <Card 
           key={index} 
           id={index} 

@@ -41,7 +41,7 @@ function App() {
     <>
       {!loggedIn && <Auth allowLogin={()=>setLoggedIn(true)} faculty = {()=>{setFaculty(true)}} username={updateUsername} />}
       {/* {loggedIn && faculty ? (showStudent? <Faculty name ="Admin"/> : <Student details={details} mode={false&&"edit"}/>):<Student details={details} mode={true&&"edit"}/>} */}
-      {loggedIn && faculty ? (showStudent? <Student details={data} back = {()=>{setShowStudent(false)}} mode={false&&"edit"}/>:<Faculty name ="Admin" setStudent = {(updateDetails)} show={()=>{setShowStudent(true)}}/>) :<Student details={data} mode={true&&"edit"}/>}
+      {loggedIn && faculty ? (showStudent? <Student details={data} back = {()=>{setShowStudent(false)}} mode={false&&"edit"}/>:<Faculty name ={username} setStudent = {(updateDetails)} show={()=>{setShowStudent(true)}}/>) :<Student details={data} mode={true&&"edit"}/>}
 
     </>
   )
