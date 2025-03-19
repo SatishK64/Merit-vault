@@ -60,7 +60,8 @@ const Student = ({ details,back, link, mode }) => {
           ))}
         </h5>
         {mode !== "edit"&&<button className="glassy-button" onClick={back}><span><i className="fas fa-arrow-left"></i></span></button>}
-        {mode === "edit" && <button onClick={enable} className='circular-upload-button'>+</button>}
+        {details.username!== '' && mode === "edit"&&<button className="glassy-button" onClick={()=>{location.reload()}}><span><i className="fas fa-sign-out-alt"></i></span></button>}
+        {details.username!== '' && mode === "edit" && <button onClick={enable} className='glassy-button bottom'><span><i className="fas fa-upload"></i></span></button>}
       </div>
       <div className={styles.parent}>
         {cards.length === 0 ? <p className={styles.errorMsg}>No Files Uploaded</p>: 

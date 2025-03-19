@@ -41,6 +41,7 @@ const Faculty = ({name,setStudent,show}) => {
       Welcome {name}
     </div>
     <div className={styles.facContainer}>
+    <button className="glassy-button" onClick={()=>{location.reload()}}><span><i className="fas fa-sign-out-alt"></i></span></button>
       <input type='text' onChange={handleInputChange} value={searchItem} placeholder='Type to search' className={styles.glassMorphism} />
       <div className={styles.tableContainer}>
       {filteredStudents.length === 0 ? <p className={styles.errorMsg}>No Students found</p>: 

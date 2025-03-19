@@ -127,6 +127,11 @@ html {
     --_surface: hsl(41, 96%, 56%);
 }
 
+.bottom{
+    position: fixed;
+    top:90%;
+    left:90%;
+}
 @layer not-demo-related {
     .meta {
         font-size: 0.625rem;
@@ -138,50 +143,33 @@ html {
 @media only screen and (max-width: 768px) {
     .glassy-button{
         top:90vh;
-        left: 80vw;
+        left: 20px;
         margin-right: 10px;
         margin-bottom: 10px;
     }
-}
-
-.circular-upload-button {
-    --_padding: 1rem;
-    --_transition-speed: 200ms;
-    --_hover-opacity: 0.4;
-    --_pressed-opacity: 0.15;
-    --_hover-blurriness: 5px;
-    --_pressed-blurriness: 10px;
-    --_frostiness: 0.3;
-    --_hover-offset: 0.5rem;
-    --_pressed-offset: 0.25rem;
-    --_motion-factor: 0.1; /* 0 -> 1 */
-
-    outline: 0;
-    cursor: pointer;
-    font: inherit;
-    color: hsl(200, 60%, 12%);
-    font-weight: 500;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background-color: rbg(0,0,250);
-    position: relative;
-    width: 50px;
-    height: 50px;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
-    /* top: 50vh;
-    left: 50vw; */
-    z-index: 10;
+    .bottom{
+        position: fixed;
+        top:90%;
+        left:80%;
+    }
 }
 .upload-container{
+    /* align-self:center;
+    justify-self:center; */
+    position:absolute;
+    margin:auto;
     height:100vh;
     width:100vw;
-    background-color: transparent;
+    background-color: hsl(0 0% 0% / 0.2); /* semi-transparent background */
+    backdrop-filter: blur(10px); /* blur effect */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border-radius: 1rem; /* rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
+    z-index:10;
+    /* opacity: 0; */
+    transition: opacity 3s;
 }
 

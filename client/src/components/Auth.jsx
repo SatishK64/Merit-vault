@@ -155,7 +155,10 @@ function Auth(props) {
                     </div>
                     <div className="text sign-in">
                         <h2>
-                            Welcome
+                            Welcome to
+                        </h2>
+                        <h2>
+                            Merit Vault
                         </h2>
                     </div>
                 </div>
@@ -164,7 +167,7 @@ function Auth(props) {
                 <div className="col align-items-center flex-col logoDown">
                     <div className="text sign-up">
                         <h2>
-                        Join with us
+                        Join Merit Vault
                         </h2>
                     </div>
                     <div className="img sign-up">
