@@ -193,29 +193,31 @@ router.post('/allfiles',async (req,res)=>{
     return res.status(200).json({files:user.files});
 });
 router.put('/deletefile', async (req, res) => {
+
     try {
         const { username, filename } = req.body;
-
-        // Find the user
-        const user = await User.findOne({ username });
+        console.log(username,filename);
+            const user = await User.findOne({ username });
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
-        const fileExists = user.files.some(file => file.fileName === filename);
-        if (!fileExists) {
+        const fileIndex = user.files.findIndex(file => file.fileName === filename);
+        if (fileIndex === -1) {
             return res.status(404).json({ message: "File does not exist to delete in the first place" });
         }
-        const { newcount } = await User.updateOne(
-            { username },
-            { $pull: { files: { fileName: filename } } }
-        );
 
-        if (newcount === 0) {
-            return res.status(404).json({ message: "File could not be deleted" });
-        }
+        const fileTags = user.files[fileIndex].tags;
 
-        return res.status(200).json({ message: "File deleted successfully" });
+        user.files.splice(fileIndex, 1);
+
+        const remainingTags = new Set(user.files.flatMap(file => file.tags));
+
+        user.tags = user.tags.filter(tag => remainingTags.has(tag));
+
+        await user.save();
+
+        return res.status(200).json({ message: "File and unused tags deleted successfully" });
 
     } catch (err) {
         console.error(err);
