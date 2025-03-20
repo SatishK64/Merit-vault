@@ -33,20 +33,8 @@ const Student = ({ details,back, link, mode ,ondelete }) => {
   },[details,showUpload,toggle]);
 
 useEffect(()=>{
-    async function student(){
-      const res = await fetch(`/api/deets/${details.username}`);
-      if(res.status === 200){
-          const data = await res.json();
-          details.tags = data.tags;
-      }else{
-          alert('User not found');
-      }   
-    }
-    if(details.username!==''){
-      student();
-    }
-
-  },[toggle,showUpload]);
+   ondelete();
+  },[showUpload]);
   function handleDelete() {
     setToggle((prev)=>{return !prev});
     ondelete();
