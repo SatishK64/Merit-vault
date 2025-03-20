@@ -2,8 +2,8 @@ import React,{useState,useEffect} from 'react'
 import styles from './Student.module.css'
 import Card from './Card'
 import Upload from './Upload'
-import { set } from 'mongoose'
-const Student = ({ details,back, link, mode }) => {
+
+const Student = ({ details,back, link, mode ,ondelete }) => {
   const [cards,setCards] = useState([]);
   const [showUpload,setShowUpload] = useState(false);
   const [toggle,setToggle] = useState(false);
@@ -32,9 +32,24 @@ const Student = ({ details,back, link, mode }) => {
     
   },[details,showUpload,toggle]);
 
+useEffect(()=>{
+    async function student(){
+      const res = await fetch(`/api/deets/${details.username}`);
+      if(res.status === 200){
+          const data = await res.json();
+          details.tags = data.tags;
+      }else{
+          alert('User not found');
+      }   
+    }
+    if(details.username!==''){
+      student();
+    }
 
-  function handleDelete(id) {
+  },[toggle,showUpload]);
+  function handleDelete() {
     setToggle((prev)=>{return !prev});
+    ondelete();
   }
   
   function download(id){
