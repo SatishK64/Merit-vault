@@ -46,7 +46,6 @@ useEffect(()=>{
   }
 
   return (
-    loading ? <p>Loading...</p> :
     <div className={styles.student}>
       {showUpload&& <Upload click={enable} link = {link} username={details.username}/>}
       <div className={styles.details}>
