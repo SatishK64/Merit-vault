@@ -17,16 +17,13 @@ const Student = ({ details,back, link, mode ,ondelete }) => {
         return;
       }
       const data = await response.json();
-      console.log(data.files);
       if(data.files.length===0){
-        console.log("No files found");
         setCards([]);
         return;
       }
       setCards(data.files);
-
     }
-    if(details.username!==''){
+    if(details.username!=='' && details.username!=="aryan"){
       fetchData();
     }
     
@@ -49,6 +46,7 @@ useEffect(()=>{
   }
 
   return (
+    loading ? <p>Loading...</p> :
     <div className={styles.student}>
       {showUpload&& <Upload click={enable} link = {link} username={details.username}/>}
       <div className={styles.details}>
@@ -84,8 +82,8 @@ useEffect(()=>{
           onDownload={download}/>
         ))}
       </div>
-    </div>
-  )
+  </div>
+)
 }
 
 export default Student;
