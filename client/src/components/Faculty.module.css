@@ -43,19 +43,21 @@
     justify-content: center;
     width: 80%;
     padding-top: 10vh;
-    max-height: 100vh; /* Adjust the height as needed */
+    max-height: 80vh; /* Adjust the height as needed */
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none; 
+    border-bottom: 3px solid #006B64;
 }
 .tableContainer::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
+    display: none; /* Safari and Chrome */
 }
 
 .table {
     width: 90%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .table td {

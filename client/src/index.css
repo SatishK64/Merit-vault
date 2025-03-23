@@ -123,14 +123,11 @@ html {
     --_surface:  #006B64;
 }
 
-.glassy-button:nth-child(2) {
-    --_surface: hsl(41, 96%, 56%);
-}
-
 .bottom{
-    position: fixed;
-    top:90%;
-    left:90%;
+    left: auto;
+    top: auto;
+    right: 40px;
+    bottom: 40px;
 }
 @layer not-demo-related {
     .meta {
@@ -141,16 +138,16 @@ html {
     }
 }
 @media only screen and (max-width: 768px) {
-    .glassy-button{
-        top:90vh;
+    .glassy-button {
+        top: auto;
+        bottom: 40px;
         left: 20px;
-        margin-right: 10px;
-        margin-bottom: 10px;
     }
-    .bottom{
-        position: fixed;
-        top:90%;
-        left:80%;
+    .bottom {
+        left: auto;
+        top: auto;
+        right: 20px;
+        bottom: 40px;
     }
 }
 .upload-container{
@@ -160,16 +157,14 @@ html {
     margin:auto;
     height:100vh;
     width:100vw;
-    background-color: hsl(0 0% 0% / 0.2); /* semi-transparent background */
-    backdrop-filter: blur(10px); /* blur effect */
+    background-color: hsl(0 0% 0% / 0.2); /* slightly darker semi-transparent background */
+    backdrop-filter: blur(16px); /* blur effect */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border-radius: 1rem; /* rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
     z-index:10;
-    /* opacity: 0; */
     transition: opacity 3s;
 }
 

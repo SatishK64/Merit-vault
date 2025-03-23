@@ -1,9 +1,10 @@
-upload functionality ****
+implement horizontal bottom scroll in faculty page to show end of student list
 show / hide password
-logout button
 show card skeletons before loading (preferably animated)
 
 Done---
+logout button
+upload css
 make student name responsive
 back button from student profile to faculty
 access student from faculty

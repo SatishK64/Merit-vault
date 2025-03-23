@@ -1,6 +1,7 @@
 // Frontend React Component (FileUpload.js)
 import React, { useState } from 'react';
 import axios from 'axios';
+import styles from './Upload.module.css';
 
 const FileUpload = ({click,link, username}) => {
   const [file, setFile] = useState(null);
@@ -9,11 +10,18 @@ const FileUpload = ({click,link, username}) => {
   const [uploading, setUploading] = useState(false);
   const [status, setStatus] = useState('');
   const [progress, setProgress] = useState(0);
+  const [fileName, setFileName] = useState('No file chosen');
 
   const handleFileChange = (e) => {
     if (e.target.files.length > 0) {
       setFile(e.target.files[0]);
       setStatus('');
+      const file = e.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    } else {
+      setFileName('No file chosen');
+    }
     }
   };
 
@@ -46,7 +54,7 @@ const FileUpload = ({click,link, username}) => {
       });
       console.log(response);
 
-      setStatus(`Upload successful: ${response.data.message}`);
+      setStatus(`${response.data.message}`);
       setFile(null);
       setTitle('');
       setTags('');
@@ -59,47 +67,67 @@ const FileUpload = ({click,link, username}) => {
 
   return (
     <div className="upload-container">
-    <button onClick={click}>Close</button>
-      <h2>File Upload</h2>
-      <div className="file-input">
-        <input
-          type="file"
-          accept="image/*,.pdf"
-          onChange={handleFileChange}
-          disabled={uploading}
-        />
+    <div className={styles.modal}>
+      <div onClick={click} className={styles.closecontainer}>
+          <div className={styles.leftright}></div>
+          <div className={styles.rightleft}></div>
+          <label className={styles.close}>close</label>
       </div>
-      <div className="text-input">
-        <input
-          type="text"
-          placeholder="Enter document title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          disabled={uploading}
-        />
-      </div>
-      <div className="text-input">
-        <input
-          type="text"
-          placeholder="Enter tags (comma-separated)"
-          value={tags}
-          onChange={(e) => setTags(e.target.value)}
-          disabled={uploading}
-        />
-      </div>
-      <button onClick={handleUpload} disabled={!file || uploading}>
-        Upload File
-      </button>
-      {uploading && (
-        <div className="progress-bar">
-          <div
-            className="progress-fill"
-            style={{ width: `${progress}%` }}
-          ></div>
-          <span>{progress}%</span>
+      <div className={styles.content}>
+
+        <h1 className={styles.text}>File Upload</h1>
+        <div className={styles.fileInputContainer}>
+          <span className={styles.fileName}>{fileName}</span>
+          <label htmlFor="fileUpload" className={styles.customFileUpload}>
+            Choose File
+          </label>
+          <input
+            id="fileUpload"
+            type="file"
+            accept="image/*,.pdf"
+            onChange={handleFileChange}
+            style={{ display: 'none' }}
+          />
         </div>
-      )}
-      {status && <p className="status">{status}</p>}
+
+        <div className={styles.inputBox}>
+          <label className={styles.inputLabel}>
+            Enter document title:
+          </label>
+          <input
+            type="text"
+            placeholder="Project"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            disabled={uploading}
+            className={styles.input}
+            />
+        </div>
+        <div className={styles.inputBox}>
+          <label className={styles.inputLabel}>
+            Enter tags:
+          </label>
+          <input
+            type="text"
+            placeholder="AI, Resume, etc."
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+            disabled={uploading}
+            className={styles.input}
+            />
+        </div>
+        <button onClick={handleUpload} className={`${styles.btn} ${styles["btn-down"]} ${styles["btn-down--black"]}`} disabled={!file || uploading}>
+          Upload File
+        </button>
+        {uploading && (
+          <div 
+          className={styles.progress} 
+          style={{ "--progress": `${progress}%` }}
+        />
+        )}
+        {status && <p className={styles.uptext}>{status}</p>}
+      </ div>
+      </div>
     </div>
   );
 };
