@@ -23,7 +23,7 @@ const Student = ({ details,back, link, mode ,ondelete }) => {
       }
       setCards(data.files);
     }
-    if(mode && details.username!==''){
+    if( details.username!==''){
       fetchData();
     }
     
