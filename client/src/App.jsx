@@ -33,7 +33,7 @@ function App() {
           alert('User not found');
       }   
     }
-    if (username !== '' && (!data || data.username !== username)) {
+    if (username !== '') {
       student();
     }
 
