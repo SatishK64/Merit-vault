@@ -24,11 +24,11 @@ const Student = ({ details,back, link, mode ,ondelete }) => {
       }
       setCards(data.files);
     }
-    if(details.username!=='' && details.role!=="faculty"){
+    if(details.username!==''){
       fetchData();
     }
     
-  },[details,showUpload,toggle]);
+  },[showUpload,toggle]);
 
 useEffect(()=>{
    ondelete();
