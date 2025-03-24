@@ -29,9 +29,11 @@ function Auth(props) {
             },
             body: JSON.stringify({username: ip, password: password}),
         });
+        const {role} = await user.json();
+        console.log(role);
         if(user.status === 200){
             props.username(ip);
-            if( ip==="aryan"){
+            if(role === 'faculty'){
                 props.faculty();
             }
             props.allowLogin();
