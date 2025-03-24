@@ -58,6 +58,7 @@ const FileUpload = ({click,link, username}) => {
       setFile(null);
       setTitle('');
       setTags('');
+      setFileName('No file chosen');
     } catch (error) {
       setStatus(`Upload failed: ${error.response?.data?.error || error.message}`);
     } finally {

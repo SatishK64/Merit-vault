@@ -104,7 +104,7 @@ label{
 }
 
 .inputLabel {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #006B64;
     margin: 10px;
     opacity:1;
@@ -172,8 +172,8 @@ label{
     font-family: Helvetica, Arial, sans-serif;
     text-transform: capitalize;
     letter-spacing: 1px;
-    font-weight: bold;
     font-size:1rem;
+    border-radius: 20px;
   }
   
   .btn:hover .btn-slide-show-text1 {
@@ -203,7 +203,7 @@ label{
     border-radius: 50%;
     top: 100%;
     left: -30px;
-    transition: 0.4s;
+    transition: 0.3s;
   }
   
   .btn-down:hover {
@@ -239,7 +239,7 @@ label{
     position: absolute;
     margin: 2px;
     /* Replace the animation with a fixed width */
-    inset: 0 calc(100% - var(--progress, 50%)) 0 0; /* Default 50% */
+    inset: 0 calc(100% - max(var(--progress, 20%),15%)) 0 0;
     border-radius: inherit;
     background: currentColor;
   }
