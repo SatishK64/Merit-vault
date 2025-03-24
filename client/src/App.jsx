@@ -20,7 +20,7 @@ function App() {
   }
   useEffect(()=>{
     async function student(){
-      console.log("deets update in aPP" + username); 
+      console.log("deets update in app" + username); 
       const res = await fetch(`/api/deets/${username}`);
       if(res.status === 200){
           const data = await res.json();
@@ -29,7 +29,7 @@ function App() {
           alert('User not found');
       }   
     }
-    if (username !== '' && (!data || data.username === username)) {
+    if (username !== '' && (!data || data.username !== username)) {
       student();
     }
 

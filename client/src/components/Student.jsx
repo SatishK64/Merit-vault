@@ -27,7 +27,7 @@ const Student = ({ details,back, link, mode ,ondelete }) => {
       fetchData();
     }
     
-  },[showUpload,toggle]);
+  },[details,showUpload,toggle]);
 
 
 useEffect(() => {
