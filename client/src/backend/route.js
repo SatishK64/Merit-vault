@@ -19,7 +19,7 @@ router.post('/login',async(req,res)=>{
     if(user){
         const validPassword=await bcrypt.compare(password,user.passwordHash);
         if(validPassword){
-            return res.status(200).json({message:"User authenticated"});
+            return res.status(200).json({role:user.role});
         }
         else{
             return res.status(401).json({message:"Invalid Password"});
@@ -224,6 +224,20 @@ router.put('/deletefile', async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 });
+router.put('/resetpass',async(req,res)=>{
+    const {username,newpassword}=req.body;
+    const user=User;findONe({username});
+    if(!user){
+        return res.status(404).json({message:"user not found"})
+    }
+    const newsalt=await bcrypt.genSalt(10);
+    const newhash=await bcrypt.hash(newpassword,newsalt);
+    user.passwordHash=newhash;
+    await user.save();
+    return res.status(200).json({message:"Password reset successfully"});
+    
+
+})
 
 
 export default router;
