@@ -20,7 +20,7 @@ function App() {
   }
   useEffect(()=>{
     async function student(){
-      // console.log(username); 
+      console.log("deets update in aPP" + username); 
       const res = await fetch(`/api/deets/${username}`);
       if(res.status === 200){
           const data = await res.json();

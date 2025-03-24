@@ -29,12 +29,14 @@ const Student = ({ details,back, link, mode ,ondelete }) => {
     
   },[showUpload,toggle]);
 
-useEffect(()=>{
-   ondelete();
-  },[showUpload]);
+
+useEffect(() => {
+  if (!showUpload) {
+    ondelete();
+  }
+}, [showUpload]);
   function handleDelete() {
     setToggle((prev)=>{return !prev});
-    ondelete();
   }
   
   function download(id){
