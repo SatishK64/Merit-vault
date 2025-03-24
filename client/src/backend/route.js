@@ -67,8 +67,8 @@ router.put('/upload', async (req, res) => {
 // 🚀 **User Registration (POST)**
 router.get('/alldata',async(req,res)=>{
     try{
-        const users=await User.find({},{username:1,tags:1,_id:0});
-        res.status(200).json({data:users});
+        const users=await User.find({},{username:1,tags:1,_id:0,role:1});
+        res.status(200).json({data:users,role:users.role,tag:users.tags});
     }
     catch(err){
         res.status(500).json({message:"Internal Server Error"});
