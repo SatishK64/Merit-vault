@@ -29,8 +29,8 @@ function App() {
           alert('User not found');
       }   
     }
-    if(username!==''){
-      student();
+    if (username !== '' && (!data || data.username !== username)) {
+      fetchStudentData();
     }
 
   }
