@@ -30,7 +30,7 @@ function App() {
       }   
     }
     if (username !== '' && (!data || data.username !== username)) {
-      fetchStudentData();
+      student();
     }
 
   }
