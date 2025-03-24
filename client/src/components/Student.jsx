@@ -11,7 +11,6 @@ const Student = ({ details,back, link, mode ,ondelete }) => {
   //Fetching all files and seting the cards to all the files
   useEffect(()=>{
     async function fetchData(){
-      console.log(details);
       const response = await fetch(`/api/allfiles/${details.username}`);
       if(!response.ok){
         console.log("Error fetching data");
@@ -24,7 +23,7 @@ const Student = ({ details,back, link, mode ,ondelete }) => {
       }
       setCards(data.files);
     }
-    if(details.username!==''){
+    if(mode && details.username!==''){
       fetchData();
     }
     
