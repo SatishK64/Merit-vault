@@ -109,7 +109,7 @@ router.get('/deets/:username',async (req,res)=>{
     if(!user){
         return res.status(404).json({message:"User does not exist"})
     }
-    return res.status(200).json({username:username,tags:user.tags})
+    return res.status(200).json({username:username,tags:user.tags,role:user.role});
 })
 
 router.get('/allfiles/:username',async (req,res)=>{
