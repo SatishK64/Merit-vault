@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 
   const details = {
     username:"",
+    role:"student",
     tags:["Sports","Club","Cloud"],
   };
 
