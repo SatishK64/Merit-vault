@@ -23,7 +23,7 @@ const Student = ({ details,back, link, mode ,ondelete }) => {
       }
       setCards(data.files);
     }
-    if( details.username!==''){
+    if(details.username!==''){
       fetchData();
     }
     
@@ -31,12 +31,11 @@ const Student = ({ details,back, link, mode ,ondelete }) => {
 
 
 useEffect(() => {
-  if (!showUpload) {
     ondelete();
-  }
 }, [showUpload]);
   function handleDelete() {
     setToggle((prev)=>{return !prev});
+    ondelete();
   }
   
   function download(id){
