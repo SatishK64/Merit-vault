@@ -23,7 +23,7 @@ const Student = ({ details,back, link, mode ,ondelete }) => {
       }
       setCards(data.files);
     }
-    if(details.username!=='' && details.username!=="aryan"){
+    if(details.username!=='' && details.role!=="faculty"){
       fetchData();
     }
     
