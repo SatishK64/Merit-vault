@@ -5,7 +5,7 @@ import router from '../src/backend/route.js';
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: "*"
+  origin: process.env.NODE_ENV === 'production' ? 'https://merit-vault.vercel.app/' : '*',
 }));
 
 app.use('/api',router);

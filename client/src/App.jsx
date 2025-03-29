@@ -12,7 +12,7 @@ function App() {
   const[username,setUsername]=useState('');
   const[data,setData]=useState(details);
   const [toggle,setToggle] = useState(false);
-  const link = 'https://fpszl91p-3000.inc1.devtunnels.ms/'
+  const link = 'https://vxj4wjb3-3000.inc1.devtunnels.ms/'
   // The edit can be a separate variable that can be changed form somewhere esle
   function updateDetails(data){
     const student=data;

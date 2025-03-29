@@ -60,7 +60,7 @@ const Card = ({ username,info, id,link, onDelete,onDownload, styling, child, mod
   return (
     <div className={child}>
       <div className={styles.card}>
-        <img src={`${link}file/view/${username}/${info.previewImage}`} className={styles.cardImgTop} alt="preview" loading='eager'/>
+        <img src={`${link}file/view/${username}/${info.previewImage}`} className={styles.cardImgTop} alt="preview" loading='lazy'/>
         <div className={styles.cardBody}>
           <h5 className={styles.cardTitle}>{info.title}</h5>
           <p className={styles.cardText}>{info.tags.map((tag, index) => (
