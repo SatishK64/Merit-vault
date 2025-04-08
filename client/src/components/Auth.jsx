@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import logo from './../assets/logo.svg';
 import './Auth.css';
-import { set } from 'mongoose';
 function Auth(props) {
 
     const[sign,setSign]= useState(true);
@@ -122,11 +121,11 @@ function Auth(props) {
                     <div className="form-wrapper align-items-center">
                         <div className="form sign-in">
                             <div className="input-group">
-                                <input onChange = {handleChange} type="text" placeholder="User ID"/>
+                                <input onChange = {handleChange} type="text" placeholder="User ID" autoComplete='username' />
                             </div>
                             <div className="input-group">
                                 <i className='bx bxs-lock-alt'></i>
-                                <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                                <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} autoComplete='current-password' />
                             </div>
                             <button onClick={async()=>{signIn()}}>
                                 Sign in
