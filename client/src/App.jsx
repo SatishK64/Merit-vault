@@ -1,4 +1,5 @@
-import React,{ use, useState, useEffect } from 'react';
+/* eslint-disable no-constant-binary-expression */
+import React,{  useState, useEffect } from 'react';
 import Auth from './components/Auth';
 import Student from './components/Student';
 import Faculty from './components/Faculty';
@@ -12,7 +13,7 @@ function App() {
   const[username,setUsername]=useState('');
   const[data,setData]=useState(details);
   const [toggle,setToggle] = useState(false);
-  const link = 'https://mkx8mvlm-3000.inc1.devtunnels.ms/'
+  const link = '/api/'
   // The edit can be a separate variable that can be changed form somewhere esle
   function updateDetails(data){
     const student=data;
@@ -21,10 +22,11 @@ function App() {
   useEffect(()=>{
     async function student(){
       console.log("deets update in app" + data.username + " " + username); 
+      var res;
       if (showStudent){
-      var res = await fetch(`/api/deets/${data.username}`);}
+        res = await fetch(`/api/deets/${data.username}`);}
       else{
-        var res = await fetch(`/api/deets/${username}`);
+        res = await fetch(`/api/deets/${username}`);
       }
       if(res.status === 200){
           const data = await res.json();
