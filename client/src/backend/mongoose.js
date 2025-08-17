@@ -5,23 +5,25 @@ import User from './schema/users.js';
 
 const router = express.Router();
 connectDB();
-router.put('/upload', async (req, res) => {
-    console.log(req.body);
-    const { username, file } = req.body;
+export async function uploadUserFile( username, file ) {
+    console.log(username,file)
+    if (!username || !file) {
+        throw { status: 400, message: "Username or file not provided" };
+    }
+
     const user = await User.findOne({ username });
 
     if (!user) {
-        console.log("User not found in database");
-        return res.status(404).json({ message: "User not found" });
+        throw { status: 404, message: "User not found" };
     }
 
-    if (!file || !file.fileName || !file.previewImage||!file.title) {
-        return res.status(400).json({ message: "File name or preview image not found" });
+    if (!file.fileName || !file.previewImage || !file.title) {
+        throw { status: 400, message: "File name, preview image, or title not found" };
     }
 
     let fileExists = user.files.some(f => f.fileName === file.fileName);
     if (fileExists) {
-        return res.status(409).json({ message: "File already exists" });
+        throw { status: 409, message: "File already exists" };
     }
 
     if (file.tags) {
@@ -36,12 +38,20 @@ router.put('/upload', async (req, res) => {
         fileName: file.fileName,
         previewImage: file.previewImage,
         tags: file.tags || [],
-        title:file.title
+        title: file.title
     });
 
     await user.save();
-    res.status(200).json({ message: "User file details updated" });
+    return { message: "User file details updated" };
+}
 
+router.put('/upload', async (req, res) => {
+    try {
+        const result = await uploadUserFile(req.body);
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(err.status || 500).json({ message: err.message || "Internal server error" });
+    }
 });
 
 export default router;

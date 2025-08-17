@@ -2,10 +2,10 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import convertFirstPageToPng from './convert.js';
-import axios from 'axios'; 
 import connectDB from './metaDB/db.js';
 import User from './schema/users.js';
 import { Upload } from './ConfigDrive.js';
+import { uploadUserFile } from './mongoose.js';
 
 connectDB();
 const router = express.Router();
@@ -37,12 +37,6 @@ router.post('/:user', uploadbuffer.single('file'), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No file uploaded' });
   }
-  console.log("hello");
-  const username = req.params.user;
-  const user=await User.findOne({username});
-  if(!user){
-    return new Error("Invalid User");
-  }
 
   // console.log('File uploaded:', req.file.originalname, title, req.file.size, req.file.mimetype);
   try {
@@ -63,22 +57,14 @@ router.post('/:user', uploadbuffer.single('file'), async (req, res) => {
       
       try {
         // Update metadata in the database
-        const response = await axios.put('http://localhost:5050/api/meta/upload', {
-          username: req.params.user,
-          file: {
-            fileName: fileId,
-            previewImage: pngId,
-            title: title,
-            tags: tags
-          }
-        }, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
+        const response = await uploadUserFile(req.params.user, {
+          fileName: fileId,
+          previewImage: pngId,
+          title: title,
+          tags: tags
         });
 
-        
-        console.log('Metadata update response:', response.data);
+        console.log('Metadata update response:', response.message);
         
         return res.status(200).json({ 
           message: 'File uploaded and converted successfully'
@@ -101,21 +87,16 @@ router.post('/:user', uploadbuffer.single('file'), async (req, res) => {
             const uploadResponse = await Upload(req.file.buffer,req.file.mimetype,req.file.originalname);
             const fileId=uploadResponse.id;
             // Update metadata in the database
-            const response = await axios.put('http://localhost:5050/api/meta/upload', {
-                username: req.params.user,
-                file: {
+             const response = await uploadUserFile(req.params.user, 
+                {
                     fileName: fileId,
                     previewImage: fileId,
                     title: title,
                     tags: tags
                 }
-            }, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+            );
             
-            console.log('Metadata update response:', response.data);
+            console.log('Metadata update response:', response.message);
             
             return res.status(200).json({ 
                 message: 'File uploaded successfully',
