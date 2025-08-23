@@ -1,12 +1,13 @@
 import React from 'react'
 import styles from './Card.module.css' // Import the CSS module
 
+// eslint-disable-next-line no-unused-vars
 const Card = ({ username,info, id,link, onDelete,onDownload, styling, child, mode })=> {
 
-  function downloadFile(username, filename, customFilename) {
+  function downloadFile( filename, customFilename) {
     // If no custom filename is provided, use the original
     const displayFilename = customFilename || filename;
-    const downloadUrl = `${link}file/download/${username}/${filename}`;
+    const downloadUrl = `${link}file/download/${filename}`;
     
     // Using fetch API to control the download filename
     fetch(downloadUrl)
@@ -60,7 +61,7 @@ const Card = ({ username,info, id,link, onDelete,onDownload, styling, child, mod
   return (
     <div className={child}>
       <div className={styles.card}>
-        <img src={`${link}file/view/${username}/${info.previewImage}`} className={styles.cardImgTop} alt="preview" loading='lazy'/>
+        <img src={`${link}file/view/${info.previewImage}`} className={styles.cardImgTop} alt="preview" loading='lazy'/>
         <div className={styles.cardBody}>
           <h5 className={styles.cardTitle}>{info.title}</h5>
           <p className={styles.cardText}>{info.tags.map((tag, index) => (

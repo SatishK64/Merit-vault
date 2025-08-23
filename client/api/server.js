@@ -1,6 +1,9 @@
+/* eslint-disable no-undef */
 import express from 'express';
 import cors from 'cors';
 import router from '../src/backend/route.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 app.use(express.json());
@@ -24,4 +27,4 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Export the app for Vercel
-export default app;
+export default app;

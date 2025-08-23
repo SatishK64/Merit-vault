@@ -1,14 +1,22 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import connectDB from "./metaDB/db.js";		
-import User from "./schema/users.js";
-import { use } from 'react';
+import User from "./schema/users.js"
+import upload from "./storage.js";
+import file from "./fileHandle.js";
+import meta from "./mongoose.js";
 import Token from "./schema/token.js";
+
 
 const router = express.Router();
 
 connectDB();
 
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
+router.use('/upload',upload);
+router.use("/file",file);
+router.use("/meta",meta);
 router.post('/login',async(req,res)=>{
 
     const {username,password}=req.body;
@@ -62,8 +70,7 @@ router.put('/upload', async (req, res) => {
     });
 
     await user.save();
-    res.status(200).json({ message: "User file details updated" });
-    
+    res.status(200).json({ message: "User file details updated"});
 });
 // 🚀 **User Registration (POST)**
 router.get('/alldata',async(req,res)=>{
@@ -72,6 +79,7 @@ router.get('/alldata',async(req,res)=>{
         res.status(200).json({data:users,role:users.role,tag:users.tags});
     }
     catch(err){
+        console.error("Errotr:",err)
         res.status(500).json({message:"Internal Server Error"});
     }
 })
@@ -95,7 +103,7 @@ router.post('/register', async (req, res) => {
         await newUser.save();
         res.status(201).json({ message: "User Created" });
     } catch (err) {
-        // console.error("Error:", err);
+        console.error("Error:", err);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
@@ -208,7 +216,6 @@ router.put('/deletefile', async (req, res) => {
             return res.status(404).json({ message: "File does not exist to delete in the first place" });
         }
 
-        const fileTags = user.files[fileIndex].tags;
 
         user.files.splice(fileIndex, 1);
 
@@ -227,7 +234,7 @@ router.put('/deletefile', async (req, res) => {
 });
 router.put('/resetpass',async(req,res)=>{
     const {username,newpassword}=req.body;
-    const user=User;findONe({username});
+    const user=User.findOne({username});
     if(!user){
         return res.status(404).json({message:"user not found"})
     }
