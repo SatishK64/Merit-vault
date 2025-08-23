@@ -1,10 +1,12 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import connectDB from "./metaDB/db.js";		
-import User from "./schema/users.js";
+import User from "./schema/users.js"
 import upload from "./storage.js";
 import file from "./fileHandle.js";
 import meta from "./mongoose.js";
+import Token from "./schema/token.js";
+
 
 const router = express.Router();
 
@@ -244,6 +246,25 @@ router.put('/resetpass',async(req,res)=>{
     
 
 })
+router.put('/replacetoken',async(req,res)=>{
+    try {
+        const { token } = req.body;
+        if (!token) return res.status(400).json({ message: "token is required" });
 
+        const updated = await Token.findByIdAndUpdate(
+            "uniform",
+            { token, date: Date.now() },
+            { new: true, upsert: true }
+        );
 
+        res.json({ message: "Token set", token: updated.token, date: updated.date });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+})
+router.get('/gettoken',async(req,res)=>{
+    const check = await Token.findById("uniform");
+    if (!check) return res.status(404).json({ message: "no token set" });
+    res.json({ token: check.token, date: check.date });
+})
 export default router;
